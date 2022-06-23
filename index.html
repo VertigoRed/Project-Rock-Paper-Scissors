@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function computerPlay () {
+            //Will randomly return Rock, Paper or Scissors
+            //Generate a random number between 1 - 3 and store it to a variable
+            let randomInt = Math.floor(Math.random() * 3) + 1;
+            let challenge; 
+
+            if (randomInt == 1){
+                challenge = "Rock";
+            } else if (randomInt == 2){
+                challenge = "Paper";
+            } else{
+                challenge = "Scissors";
+            }
+            console.log(randomInt);
+            console.log(challenge);
+
+        }
+    </script>
+    
+</body>
+</html>
