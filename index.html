@@ -30,65 +30,89 @@
             }
         }
 
-       function playRound (playerSelection, computerSelection) {
-           //generate computer selection
-           computerSelection = computerPlay();
-           //test
-           console.log(computerSelection);
-           //format user input
-           playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
-           //test
-           console.log(playerSelection);
-           //compare input
-           switch (playerSelection){
-               case "Rock":
-                   //check for a loss
-                   if (computerSelection == "Paper"){
-                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
-                       return `You lose ${computerSelection} beats ${playerSelection}`;
-                       break;
+        function playRound (playerSelection, computerSelection) {
+            //format user input
+            playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
+            //store result
+            let result;
+            //compare input
+            switch (playerSelection){
+                case "Rock":
+                    //check for a loss
+                    if (computerSelection == "Paper"){
+                        result = "Loss";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
                     //check for a draw
-                   } else if (computerSelection == "Rock") {
-                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
-                       return `Its a Draw! both of you picked ${playerSelection}`;
-                       break;
+                    } else if (computerSelection == "Rock") {
+                        result = "Draw";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
                     //Otherwise its a win
-                   } else {
-                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
-                       return `You Win ${playerSelection} beats ${computerSelection}`;
-                       break;
-                   }
-                case "Paper":
-                    if (computerSelection == "Scissors"){
-                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
-                       return `You lose ${computerSelection} beats ${playerSelection}`;
-                       break;
-                   } else if (computerSelection == "Paper") {
-                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
-                       return `Its a Draw! both of you picked ${playerSelection}`;
-                       break;
-                   } else {
-                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
-                       return `You Win ${playerSelection} beats ${computerSelection}`;
-                       break;
-                   }
-                case "Scissors":
-                    if (computerSelection == "Rock"){
-                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
-                       return `You lose ${computerSelection} beats ${playerSelection}`;
-                       break;
-                    } else if (computerSelection == "Scissors") {
-                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
-                       return `Its a Draw! both of you picked ${playerSelection}`;
-                       break;
                     } else {
-                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
-                       return `You Win ${playerSelection} beats ${computerSelection}`;
-                       break;
+                        result = "Win";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
                     }
-           }
-        }
+                case "Paper":
+                     //check for a loss
+                     if (computerSelection == "Scissors"){
+                        result = "Loss";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    //check for a draw
+                    } else if (computerSelection == "Paper") {
+                        result = "Draw";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    //Otherwise its a win
+                    } else {
+                        result = "Win";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    }
+                case "Scissors":
+                     //check for a loss
+                     if (computerSelection == "Rock"){
+                        result = "Loss";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    //check for a draw
+                    } else if (computerSelection == "Scissors") {
+                        result = "Draw";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    //Otherwise its a win
+                    } else {
+                        result = "Win";
+                        return checkResult(playerSelection, computerSelection, result);
+                        break;
+                    }
+            }
+            }
+        function checkResult(playerSelection, computerSelection, result){
+            switch(result){
+                case "Loss":
+                    return `You lose! ${computerSelection} beats ${playerSelection}`;
+                    break;
+                case "Win":
+                    return `You Win! ${playerSelection} beats ${computerSelection}`;
+                    break;
+                case "Draw":
+                    return `Its a Draw! both of you picked ${playerSelection}`;
+                    break;
+            }
 
+        }
+        
+        function game() {
+            let computerInput = computerPlay();
+            console.log(computerInput);
+            let playerInput = prompt("Rock, Paper or Scissors?");
+            console.log(playerInput);
+            let result = playRound(playerInput,computerInput);
+            console.log(result);
+        }
     </script>
     
 </body>
