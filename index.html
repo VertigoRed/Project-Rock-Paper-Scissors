@@ -8,29 +8,87 @@
 </head>
 <body>
     <script>
+        //const computerSelection = computerPlay();
+        // test variable
+        //console.log(computerSelection);
+
         function computerPlay () {
             //Will randomly return Rock, Paper or Scissors
             //Generate a random number between 1 - 3 and store it to a variable
             let randomInt = Math.floor(Math.random() * 3) + 1;
-            //prepare a variable to hold response
-            let challenge; 
-
             //Check what number was generated and assign a result to challenge
-            if (randomInt == 1){
-                challenge = "Rock";
-            } else if (randomInt == 2){
-                challenge = "Paper";
-            } else{
-                challenge = "Scissors";
+            switch (randomInt){
+                case 1:
+                    return "Rock";
+                    break;
+                case 2:
+                    return "Paper";
+                    break;
+                case 3:
+                    return "Scissors";
+                    break;
             }
-
-            //show outputs
-            console.log(randomInt);
-            console.log(challenge);
-
         }
 
-        function play () {}
+       function playRound (playerSelection, computerSelection) {
+           //generate computer selection
+           computerSelection = computerPlay();
+           //test
+           console.log(computerSelection);
+           //format user input
+           playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
+           //test
+           console.log(playerSelection);
+           //compare input
+           switch (playerSelection){
+               case "Rock":
+                   //check for a loss
+                   if (computerSelection == "Paper"){
+                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
+                       return `You lose ${computerSelection} beats ${playerSelection}`;
+                       break;
+                    //check for a draw
+                   } else if (computerSelection == "Rock") {
+                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
+                       return `Its a Draw! both of you picked ${playerSelection}`;
+                       break;
+                    //Otherwise its a win
+                   } else {
+                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
+                       return `You Win ${playerSelection} beats ${computerSelection}`;
+                       break;
+                   }
+                case "Paper":
+                    if (computerSelection == "Scissors"){
+                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
+                       return `You lose ${computerSelection} beats ${playerSelection}`;
+                       break;
+                   } else if (computerSelection == "Paper") {
+                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
+                       return `Its a Draw! both of you picked ${playerSelection}`;
+                       break;
+                   } else {
+                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
+                       return `You Win ${playerSelection} beats ${computerSelection}`;
+                       break;
+                   }
+                case "Scissors":
+                    if (computerSelection == "Rock"){
+                       console.log(`You lose ${computerSelection} beats ${playerSelection}`);
+                       return `You lose ${computerSelection} beats ${playerSelection}`;
+                       break;
+                    } else if (computerSelection == "Scissors") {
+                       console.log(`Its a Draw! both of you picked ${playerSelection}`);
+                       return `Its a Draw! both of you picked ${playerSelection}`;
+                       break;
+                    } else {
+                       console.log(`You Win ${playerSelection} beats ${computerSelection}`);
+                       return `You Win ${playerSelection} beats ${computerSelection}`;
+                       break;
+                    }
+           }
+        }
+
     </script>
     
 </body>
