@@ -41,51 +41,51 @@
                     //check for a loss
                     if (computerSelection == "Paper"){
                         result = "Loss";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Loss";
                         break;
                     //check for a draw
                     } else if (computerSelection == "Rock") {
                         result = "Draw";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Draw";
                         break;
                     //Otherwise its a win
                     } else {
                         result = "Win";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Win";
                         break;
                     }
                 case "Paper":
                      //check for a loss
                      if (computerSelection == "Scissors"){
                         result = "Loss";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Loss";
                         break;
                     //check for a draw
                     } else if (computerSelection == "Paper") {
                         result = "Draw";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Draw";
                         break;
                     //Otherwise its a win
                     } else {
                         result = "Win";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Win";
                         break;
                     }
                 case "Scissors":
                      //check for a loss
                      if (computerSelection == "Rock"){
                         result = "Loss";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Loss";
                         break;
                     //check for a draw
                     } else if (computerSelection == "Scissors") {
                         result = "Draw";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Draw";
                         break;
                     //Otherwise its a win
                     } else {
                         result = "Win";
-                        return checkResult(playerSelection, computerSelection, result);
+                        return "Win";
                         break;
                     }
             }
@@ -104,14 +104,22 @@
             }
 
         }
-        
+
         function game() {
-            let computerInput = computerPlay();
-            console.log(computerInput);
-            let playerInput = prompt("Rock, Paper or Scissors?");
-            console.log(playerInput);
-            let result = playRound(playerInput,computerInput);
-            console.log(result);
+            let computerInput;
+            let playerInput;
+            let result;
+            let playerScore;
+            let computerScore;
+
+            //play 5 rounds
+            for (let i=0; i < 5; i++){
+                computerInput = computerSelection();
+                playerInput = prompt("Rock, Paper or Scissors?")
+                result = playRound(playerInput, computerInput)
+                console.log(checkResult(playerInput, computerInput, result))
+
+            }
         }
     </script>
     
