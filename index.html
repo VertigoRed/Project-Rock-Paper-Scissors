@@ -29,7 +29,6 @@
                     break;
             }
         }
-
         function playRound (playerSelection, computerSelection) {
             //format user input
             playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
@@ -102,24 +101,55 @@
                     return `Its a Draw! both of you picked ${playerSelection}`;
                     break;
             }
-
         }
-
+        function winCheck(playerScore, computerScore){
+            //check for a win/loss/draw
+            if (playerScore > computerScore){
+                return `Congratulations, you won! You scored ${playerScore} points whilst the computer only scored ${computerScore} points.`;
+            } else if (playerScore < computerScore){
+                return `Oh no, you lost! You scored ${playerScore} points whilst the computer beat you with ${computerScore} points.`;
+            } else {
+                return `Its a Draw! You scored ${playerScore} points and the computer scored ${computerScore} points.`;
+            }
+        }
         function game() {
             let computerInput;
             let playerInput;
             let result;
-            let playerScore;
-            let computerScore;
+            let playerScore = 0;
+            let computerScore= 0;
 
             //play 5 rounds
             for (let i=0; i < 5; i++){
-                computerInput = computerSelection();
+                // get computer input
+                computerInput = computerPlay();
+                //get player input
                 playerInput = prompt("Rock, Paper or Scissors?")
+                //find out the result 
                 result = playRound(playerInput, computerInput)
+                //output the result
                 console.log(checkResult(playerInput, computerInput, result))
-
+                //Increment scores based on result
+                switch (result){
+                    case "Loss":
+                        computerScore++;
+                        break;
+                    case "Win":
+                        playerScore++;
+                        break;
+                    case "Draw":
+                        playerScore++;
+                        computerScore++;
+                        break;
+                }
+                //output final result after 5 rounds
+                if (i == 4){
+                    console.log(winCheck(playerScore, computerScore));
+                }
             }
+            
+            
+
         }
     </script>
     
