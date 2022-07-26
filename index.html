@@ -5,23 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    </style>
 </head>
 <body>
     <div id="container">
-        <button id = "rock">Rock</button> 
-        <button id = "paper">Paper</button>
-        <button id = "scissors">Scissors</button> 
+        <h1>Can you beat the computer at Rock, Paper, Scissors?</h1> 
+        <h2>Choose your weapon</h2>
+        <button id = "Rock">Rock</button> 
+        <button id = "Paper">Paper</button>
+        <button id = "Scissors">Scissors</button> 
+        <h3 id = "scoreMessage" style="display: none">Default</h3>
+        <h3>Score</h3>
+        <p id="playerScore">Player score: 0</p>
+        <p id="computerScore">Computer Score: 0</p>
     </div>
     <script>
+        let playerScore = 0;
+        let computerScore = 0;
+        let roundWinner = '';
+
+        const container = document.querySelector('#container');
         const buttons = document.querySelectorAll('button');
+        const scoreMessage = document.querySelector('#scoreMessage');
+        const playerScoreEl = document.querySelector('#playerScore');
+        const computerScoreEl = document.querySelector('#computerScore');
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
-                playRound(button.id, computerPlay());
+                onClick(button.id);
             });
         })
         
-
-        function computerPlay () {
+        function onClick(playerSelection){
+            const computerSelection = (computerChoice());
+            playRound(playerSelection, computerSelection);
+        }
+        function computerChoice () {
             //Will randomly return Rock, Paper or Scissors
             //Generate a random number between 1 - 3 and store it to a variable
             let randomInt = Math.floor(Math.random() * 3) + 1;
@@ -38,128 +57,61 @@
                     break;
             }
         }
-        function playRound (playerSelection, computerSelection) {
-            //format user input
-            playerSelection = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
-            //store result
-            let result;
-            //compare input
-            switch (playerSelection){
-                case "Rock":
-                    //check for a loss
-                    if (computerSelection == "Paper"){
-                        result = "Loss";
-                        return "Loss";
-                        break;
-                    //check for a draw
-                    } else if (computerSelection == "Rock") {
-                        result = "Draw";
-                        return "Draw";
-                        break;
-                    //Otherwise its a win
-                    } else {
-                        result = "Win";
-                        return "Win";
-                        break;
-                    }
-                case "Paper":
-                     //check for a loss
-                     if (computerSelection == "Scissors"){
-                        result = "Loss";
-                        return "Loss";
-                        break;
-                    //check for a draw
-                    } else if (computerSelection == "Paper") {
-                        result = "Draw";
-                        return "Draw";
-                        break;
-                    //Otherwise its a win
-                    } else {
-                        result = "Win";
-                        return "Win";
-                        break;
-                    }
-                case "Scissors":
-                     //check for a loss
-                     if (computerSelection == "Rock"){
-                        result = "Loss";
-                        return "Loss";
-                        break;
-                    //check for a draw
-                    } else if (computerSelection == "Scissors") {
-                        result = "Draw";
-                        return "Draw";
-                        break;
-                    //Otherwise its a win
-                    } else {
-                        result = "Win";
-                        return "Win";
-                        break;
-                    }
+        function playRound(playerSelection, computerSelection){
+            if (playerSelection === computerSelection){
+                scoreMessage.style.display = "block";
+                scoreMessage.textContent = 'Its a Tie!'
+                
+            } 
+            if ((playerSelection === "Rock" && computerSelection === "Paper") || 
+                (playerSelection === "Paper" && computerSelection === "Scissors") || 
+                (playerSelection === "Scissors" && computerSelection ==="Rock"))
+                {
+                    ++computerScore
+                    roundWinner = "Computer";
+                    checkScore();
+                    computerScoreEl.textContent = `Computer Score:${computerScore}`;
+                    scoreMessage.style.display = 'block';
+                    scoreMessage.textContent = 'You lose!';
+                } 
+            if((playerSelection === "Rock" && computerSelection === "Scissors") ||
+                (playerSelection ==="Paper" && computerSelection === "Rock") ||
+                (playerSelection === "Scissors" && computerSelection === "Paper"))
+                {
+                    ++playerScore
+                    roundWinner = "Player";
+                    checkScore();
+                    playerScoreEl.textContent = `Player Score:${playerScore}`;
+                    scoreMessage.style.display = 'block';
+                    scoreMessage.textContent = 'You Win!'
+                }
+
+        
+
+
+        }
+        function checkScore(){
+            if (playerScore === 5 && computerScore < 5){
+                alert("Congratulations, you beat the Computer! \n Press Ok to play again.")
+                reset();
             }
-            }
-        function checkResult(playerSelection, computerSelection, result){
-            switch(result){
-                case "Loss":
-                    return `You lose! ${computerSelection} beats ${playerSelection}`;
-                    break;
-                case "Win":
-                    return `You Win! ${playerSelection} beats ${computerSelection}`;
-                    break;
-                case "Draw":
-                    return `Its a Draw! both of you picked ${playerSelection}`;
-                    break;
+            if (playerScore < 5 && computerScore === 5){
+                alert("Oh no, you lost to the computer! \n Press Ok to try again.")
+                reset();
             }
         }
-        function winCheck(playerScore, computerScore){
-            //check for a win/loss/draw
-            if (playerScore > computerScore){
-                return `Congratulations, you won! You scored ${playerScore} points whilst the computer only scored ${computerScore} points.`;
-            } else if (playerScore < computerScore){
-                return `Oh no, you lost! You scored ${playerScore} points whilst the computer beat you with ${computerScore} points.`;
-            } else {
-                return `Its a Draw! You scored ${playerScore} points and the computer scored ${computerScore} points.`;
+
+        function reset(){
+            playerScore = 0;
+            computerScore = 0;
+            playerScoreEl.textContent = `Player Score:${playerScore}`;
+            computerScoreEl.textContent = `Computer Score:${computerScore}`;
+            if (scoreMessage.style.display = "block"){
+                scoreMessage.style.display = "none";
+                scoreMessage.textContent ="Default";
             }
+            
         }
-        // function game() {
-        //     let computerInput;
-        //     let playerInput;
-        //     let result;
-        //     let playerScore = 0;
-        //     let computerScore= 0;
-
-        //     //play 5 rounds
-        //     for (let i=0; i < 5; i++){
-        //         // get computer input
-        //         computerInput = computerPlay();
-        //         //get player input
-        //         playerInput = prompt("Rock, Paper or Scissors?")
-        //         //find out the result 
-        //         result = playRound(playerInput, computerInput)
-        //         //output the result
-        //         console.log(checkResult(playerInput, computerInput, result))
-        //         //Increment scores based on result
-        //         switch (result){
-        //             case "Loss":
-        //                 computerScore++;
-        //                 break;
-        //             case "Win":
-        //                 playerScore++;
-        //                 break;
-        //             case "Draw":
-        //                 playerScore++;
-        //                 computerScore++;
-        //                 break;
-        //         }
-        //         //output final result after 5 rounds
-        //         if (i == 4){
-        //             console.log(winCheck(playerScore, computerScore));
-        //         }
-        //     }
-            
-            
-
-        //}
     </script>
     
 </body>
